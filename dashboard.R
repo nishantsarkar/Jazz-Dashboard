@@ -4,6 +4,9 @@ library(shiny)
 library(shinydashboard)
 library(tidyverse)
 library(shinyWidgets)
+library(rsconnect)
+library(readxl)
+library(writexl)
 
 # for one of my plots
 trial_results <- data.frame(
@@ -144,7 +147,12 @@ ui <- dashboardPage(
             h4("Mississauga Corporate Office: 647-946-8801"),
             h4("Medical Information Requests: jazzpharma@medcomsol.com"),
             h3(style = "text-decoration: underline;","Send questions directly to a Jazz Sales Rep"),
-            h4("*will create standard fill out form with contact info and questions linked to excel sheet*")
+            textInput("name", "Name:", ""),
+            textInput("email", "Email:", ""),
+            textAreaInput("question", "Question:", ""),
+            actionButton("submit_btn", "Submit"),
+            br(),
+            downloadButton("download_btn", "Download Data")
     )
   )
   )
@@ -205,6 +213,27 @@ server <- function(input, output) {
     # Create a pie chart based on the clinical trial results data
     pie(trial_results2$Count, labels = trial_results$Category, main = "Phase 3 Results")
   })
+  
+  data <- reactiveVal(data.frame(Name = character(),
+                                 Email = character(),
+                                 Question = character()))
+  
+  observeEvent(input$submit_btn, {
+    new_entry <- data.frame(Name = input$name,
+                            Email = input$email,
+                            Question = input$question,
+                            stringsAsFactors = FALSE)
+    data(merge(data(), new_entry, all = TRUE))
+  })
+  
+  output$download_btn <- downloadHandler(
+    filename = function() {
+      paste("data_", Sys.Date(), ".xlsx", sep = "")
+    },
+    content = function(file) {
+      write_xlsx(data(), file)
+    }
+  )
 }
 
 
