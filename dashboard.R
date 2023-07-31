@@ -32,7 +32,19 @@ ui <- dashboardPage(
     ),
     
     tabItem(tabName = "tab3",
-            h2("Dosage & Administration")
+            h2("Dosage & Administration"),
+            h4("10 mg cristntasparase recombinant in 0.5 mL (20 mg/mL) Solutions for IM Injection"),
+            h4("Ready to use, contains six doses to replace previously planned pegaspargase dose"),
+            fluidRow(
+              tabBox(
+                side = "right", title = "Administration Schedule",
+                # The id lets us use input$tabset1 on the server to find the current tab
+                id = "tabset1", height = "250px",
+                tabPanel("Friday", "*Information on Dosage amounts/precautions*"),
+                tabPanel("Wednesday", "*Information on Dosage amounts/precautions*"),
+                tabPanel("Monday", "*Information on Dosage amounts/precautions*")
+              )
+            )
     ),
     
     tabItem(tabName = "tab4",
