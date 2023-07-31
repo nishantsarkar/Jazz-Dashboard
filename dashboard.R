@@ -5,6 +5,17 @@ library(shinydashboard)
 library(tidyverse)
 library(shinyWidgets)
 
+# for one of my plots
+trial_results <- data.frame(
+  Category = c("Group A", "Group B", "Group C"),
+  Count = c(25, 30, 45)
+)
+
+trial_results2 <- data.frame(
+  Category = c("Group A", "Group B", "Group C"),
+  Count = c(35, 20, 45)
+)
+  
 # Basics
 ui <- dashboardPage(
   dashboardHeader(title = div(
@@ -83,22 +94,32 @@ ui <- dashboardPage(
     
     tabItem(tabName = "tab3",
             h2("Dosage & Administration", style = "font-weight: bold; font-size: 30px; color: #297e91;"),
-            h4("10 mg cristntasparase recombinant in 0.5 mL (20 mg/mL) Solutions for IM Injection"),
-            h4("Ready to use, contains six doses to replace previously planned pegaspargase dose"),
+            div(class = "pretty-text",
+            h4("10 mg cristntasparase recombinant in 0.5 mL (20 mg/mL) Solutions for IM Injection")),
+            div(class = "pretty-text",
+            h4("Ready to use, contains six doses to replace previously planned pegaspargase dose")),
             fluidRow(
               tabBox(
                 side = "right", title = "Administration Schedule",
                 # The id lets us use input$tabset1 on the server to find the current tab
                 id = "tabset1", height = "250px",
-                tabPanel("Friday", "*Information on Dosage amounts/precautions*"),
-                tabPanel("Wednesday", "*Information on Dosage amounts/precautions*"),
-                tabPanel("Monday", "*Information on Dosage amounts/precautions*")
+                tabPanel("Friday", "*WILL INPUT Information on Dosage amounts/precautions*"),
+                tabPanel("Wednesday", "*WILL INPUT Information on Dosage amounts/precautions*"),
+                tabPanel("Monday", "*WILL INPUT Information on Dosage amounts/precautions*")
               )
             )
     ),
     
     tabItem(tabName = "tab4",
-            h2("Clinical Trial Data", style = "font-weight: bold; font-size: 30px; color: #297e91;")
+            h2("Clinical Trial Data", style = "font-weight: bold; font-size: 30px; color: #297e91;"),
+            div(class = "pretty-text",
+                h4("Based on what was presented to us during the introduction, we made some mock graphs to show what we can display.
+                   Ideally in the next round we will take a deeper dive on any data the jazz team can provide and make more meaningful figures!")),
+            plotOutput("efficacy_time_plot"),
+            plotOutput("pie1"),
+            plotOutput("pie2"),
+            div(class = "pretty-text",
+                h3("With access to more data from clinical trials and other demographics we can create meaningful graphs to present to HCP's!"))
     ),
     
     tabItem(tabName = "tab5",
@@ -167,6 +188,22 @@ server <- function(input, output) {
         HTML("<div class='pretty-text'><p>Here, information surrounding the pricing and insurance coverage of Rylaze in Quebec can be included.</p></div>")
       )
     })
+  })
+  
+  output$efficacy_time_plot <- renderPlot({
+    # Create the plot with empty data
+    plot(x = numeric(0), y = numeric(0), type = "n", xlim = c(0,1), ylim = c(0,1),
+         main = "RYLAZE Efficacy", xlab = "Hours after Dosage", ylab = "NSAA levels")
+  })
+
+  output$pie1 <- renderPlot({
+    # Create a pie chart based on the clinical trial results data
+    pie(trial_results$Count, labels = trial_results$Category, main = "Phase 2 Results")
+  })
+  
+  output$pie2 <- renderPlot({
+    # Create a pie chart based on the clinical trial results data
+    pie(trial_results2$Count, labels = trial_results$Category, main = "Phase 3 Results")
   })
 }
 
