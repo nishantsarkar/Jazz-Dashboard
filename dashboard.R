@@ -22,7 +22,7 @@ ui <- dashboardPage(
   # Individual tabs
   dashboardBody(
     tabItems(
-    # First tab content
+      
     tabItem(tabName = "tab1",
             h2("What is RYLAZE?")
     ),
