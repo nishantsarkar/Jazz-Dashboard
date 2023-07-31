@@ -95,17 +95,17 @@ ui <- dashboardPage(
     tabItem(tabName = "tab3",
             h2("Dosage & Administration", style = "font-weight: bold; font-size: 30px; color: #297e91;"),
             div(class = "pretty-text",
-            h4("10 mg cristntasparase recombinant in 0.5 mL (20 mg/mL) Solutions for IM Injection")),
+            h4("10 mg cristntasparase recombinant in 0.5 mL (20 mg/mL) solutions for IM injection.")),
             div(class = "pretty-text",
-            h4("Ready to use, contains six doses to replace previously planned pegaspargase dose")),
+            h4("Ready to use, contains six doses to replace previously planned pegaspargase dose.")),
             fluidRow(
               tabBox(
                 side = "right", title = "Administration Schedule",
                 # The id lets us use input$tabset1 on the server to find the current tab
                 id = "tabset1", height = "250px",
-                tabPanel("Friday", "*WILL INPUT Information on Dosage amounts/precautions*"),
-                tabPanel("Wednesday", "*WILL INPUT Information on Dosage amounts/precautions*"),
-                tabPanel("Monday", "*WILL INPUT Information on Dosage amounts/precautions*")
+                tabPanel("Friday", "*To Input: Information on dosage amounts/precautions*"),
+                tabPanel("Wednesday", "*To Input: Information on dosage amounts/precautions*"),
+                tabPanel("Monday", "*To Input: INPUT Information on dosage amounts/precautions*")
               )
             )
     ),
@@ -113,13 +113,13 @@ ui <- dashboardPage(
     tabItem(tabName = "tab4",
             h2("Clinical Trial Data", style = "font-weight: bold; font-size: 30px; color: #297e91;"),
             div(class = "pretty-text",
-                h4("Based on what was presented to us during the introduction, we made some mock graphs to show what we can display.
-                   Ideally in the next round we will take a deeper dive on any data the jazz team can provide and make more meaningful figures!")),
+                h4("Based on what was presented during the Case Competition introduction, the following are some mock graphs to show what we can display.
+                   In the next round, we will use any data provided by the Jazz team to place meaningful and interactive figures here.")),
             plotOutput("efficacy_time_plot"),
             plotOutput("pie1"),
             plotOutput("pie2"),
             div(class = "pretty-text",
-                h3("With access to more data from clinical trials and other demographics we can create meaningful graphs to present to HCP's!"))
+                h3("With access to more data from clinical trials and other demographics, we can create meaningful visuals to present to HCPs."))
     ),
     
     tabItem(tabName = "tab5",
