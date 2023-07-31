@@ -56,7 +56,12 @@ ui <- dashboardPage(
     ),
     
     tabItem(tabName = "tab6",
-            h2("Additional Information")
+            h2("Additional Information"),
+            h3(style = "text-decoration: underline;","Contact us"),
+            h4("Mississauga Corporate Office: 647-946-8801"),
+            h4("Medical Information Requests: jazzpharma@medcomsol.com"),
+            h3(style = "text-decoration: underline;","Send questions directly to a Jazz Sales Rep"),
+            h4("*will create standard fill out form with contact info and questions linked to excel sheet*")
     )
   )
   )
